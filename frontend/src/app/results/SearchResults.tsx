@@ -29,8 +29,10 @@ export default function SearchResults({ results, loading }: SearchResultsProps) 
             </div>
           ))}
         </div>
-      ) : (
+      ) : results.length > 0 ? (
         results.map((result) => <SearchResultItem key={result.key} result={result} />)
+      ) : (
+        <div className="text-center mt-[2rem] text-gray-500">No results found</div>
       )}
     </div>
   );

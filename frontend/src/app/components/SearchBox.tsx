@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import { useRouter } from "next/navigation"; // Import useRouter from next/navigation
 
@@ -29,6 +27,7 @@ export default function SearchBox() {
         onKeyUp={handleKeyDown}
         placeholder="Search IMDb"
         className="border border-gray-300 rounded-l-md p-4 w-full outline-none"
+        autoFocus
       />
       <button
         onClick={handleSearch}
