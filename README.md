@@ -4,7 +4,7 @@
 
 ### Prerequisites
 - Node.js (v14 or higher)
-- npm or yarn
+- npm
 
 ### Backend
 
@@ -16,8 +16,6 @@
 2. **Install dependencies:**
    ```sh
    npm install
-   # or
-   yarn install
    ```
 
 3. **Set the OMDB API key environment variable:**
