@@ -11,7 +11,6 @@ export default function SearchBox() {
     }
   };
 
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleSearch();
