@@ -37,7 +37,7 @@ export default function SearchResults({ totalResults ,results, loading }: Search
             </div>
           ))}
         </div>
-      ) : totalResults > 0 ? (
+      ) : (results.length > 0) ? (
         results.map((result) => <SearchResultItem isDetailLoaded={result.isDetailLoaded} key={result.key} result={result} />)
       ) : (
         <div className="text-center mt-[2rem] text-gray-500">No results found</div>
