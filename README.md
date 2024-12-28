@@ -70,7 +70,7 @@
 
 ### Features
 
-- Supports dark mode theme.
+- Has dark mode theme.
 
 ## Limitations
 - You can only search by title.
