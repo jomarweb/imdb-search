@@ -5,12 +5,21 @@ const CACHE_EXPIRATION_TIME = 3600000; // 1 hour in milliseconds
 const searchCache = new Map();
 const detailsCache = new Map();
 
-function setCache(cache, key, data) {
+// CacheItem and Cache types are already defined above
+
+function setCache<T>(cache: Cache<T>, key: string, data: T): void {
   const expirationTime = Date.now() + CACHE_EXPIRATION_TIME;
   cache.set(key, { data, expirationTime });
 }
 
-function getCache(cache, key) {
+interface CacheItem<T> {
+  data: T;
+  expirationTime: number;
+}
+
+type Cache<T> = Map<string, CacheItem<T>>;
+
+function getCache<T>(cache: Cache<T>, key: string): T | null {
   const cached = cache.get(key);
   if (cached && cached.expirationTime > Date.now()) {
     return cached.data;

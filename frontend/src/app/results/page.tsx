@@ -44,9 +44,17 @@ export default function ResultsPage() {
             }));
             setResults((prevResults) => [...prevResults, ...newResults]);
             // Fetch movie details independently
-            newResults.forEach((result) => {
+            interface MovieDetails {
+              imdbRating: string;
+              imdbVotes: string;
+              Metascore: string;
+              Plot: string;
+              Genre: string;
+            }
+
+            newResults.forEach((result: SearchResult) => {
               fetchMovieDetails(result.imdbID)
-                .then((details) => {
+                .then((details: MovieDetails) => {
                   setResults((prevResults) =>
                     prevResults.map((r) =>
                       r.imdbID === result.imdbID
@@ -64,7 +72,7 @@ export default function ResultsPage() {
                     )
                   );
                 })
-                .catch((error) => {
+                .catch((error: Error) => {
                   console.error("Error fetching movie details:", error);
                 });
             });
