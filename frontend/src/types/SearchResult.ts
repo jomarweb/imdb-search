@@ -10,4 +10,5 @@ export type SearchResult = {
   Genre?: string;
   Plot?: string;
   key?: string;
+  isDetailLoaded: boolean;
 };

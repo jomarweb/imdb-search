@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import type { Metadata } from "next";
 import "./globals.css";
 import { ReactNode } from "react";
@@ -22,7 +22,11 @@ export default function Layout({ children }: { children: ReactNode }) {
           
           </div>
         </header>
-        <main>{children}</main>
+        <main>
+        <Suspense>
+        {children}
+        </Suspense>
+       </main>
       </body>
     </html>
   );

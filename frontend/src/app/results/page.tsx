@@ -1,10 +1,11 @@
 "use client";
-import React from "react";
+import React, { Suspense, useRef } from "react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import SearchResults from "./SearchResults";
 import { SearchResult } from "../../types/SearchResult";
 import SearchBox from "../components/SearchBox"; // Import SearchBox
+import { fetchSearchResults, fetchMovieDetails } from "../../services/apiService"; // Import the service functions
 
 export default function ResultsPage() {
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -13,6 +14,8 @@ export default function ResultsPage() {
   const [totalResults, setTotalResults] = useState(0);
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
+  const lastQuery = useRef<string | null>(null);
+  const lastPage = useRef<number>(1);
 
   useEffect(() => {
     if (query) {
@@ -22,33 +25,51 @@ export default function ResultsPage() {
   }, [query]);
 
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-
-    if (query) {
+    if (query && (query !== lastQuery.current || page !== lastPage.current)) {
       setLoading(true);
-      fetch(`http://localhost:5200/api/movies/search?title=${query}&page=${page}`, { signal })
-        .then((response) => response.json())
+      lastQuery.current = query;
+      lastPage.current = page;
+      fetchSearchResults(query, page)
         .then((data) => {
           if (data.Response === "True") {
-            const fetchDetails = data.Search.map((result: SearchResult, index: number) =>
-              fetch(`http://localhost:5200/api/movies/${result.imdbID}`, { signal })
-                .then((response) => response.json())
-                .then((details) => ({
-                  ...result,
-                  imdbRating: details.imdbRating,
-                  imdbVotes: details.imdbVotes,
-                  Metascore: details.Metascore,
-                  Plot: details.Plot,
-                  Genre: details.Genre, // Add genre information
-                  key: `${result.imdbID}-${index}`
-                }))
-            );
-            Promise.all(fetchDetails).then((detailedResults) => {
-              setResults((prevResults) => [...prevResults, ...detailedResults]);
-              setTotalResults(parseInt(data.totalResults, 10));
-              setLoading(false);
+            const newResults = data.Search.map((result: SearchResult, index: number) => ({
+              ...result,
+              imdbRating: "",
+              imdbVotes: "",
+              Metascore: "",
+              Plot: "",
+              Genre: "",
+              key: `${result.imdbID}-${index}-${page}`, // Ensure unique key
+              loading: true, // Add loading flag
+            }));
+            setResults((prevResults) => [...prevResults, ...newResults]);
+            // Fetch movie details independently
+            newResults.forEach((result) => {
+              fetchMovieDetails(result.imdbID)
+                .then((details) => {
+                  setResults((prevResults) =>
+                    prevResults.map((r) =>
+                      r.imdbID === result.imdbID
+                        ? {
+                            ...r,
+                            imdbRating: details.imdbRating,
+                            imdbVotes: details.imdbVotes,
+                            Metascore: details.Metascore,
+                            Plot: details.Plot,
+                            Genre: details.Genre, // Add genre information
+                            loading: false, // Remove loading flag
+                            isDetailLoaded: true,
+                          }
+                        : r
+                    )
+                  );
+                })
+                .catch((error) => {
+                  console.error("Error fetching movie details:", error);
+                });
             });
+            setTotalResults(parseInt(data.totalResults, 10));
+            setLoading(false);
           } else {
             setResults([]);
             setLoading(false);
@@ -62,31 +83,30 @@ export default function ResultsPage() {
           }
         });
     }
-
-    return () => {
-      controller.abort();
-    };
   }, [query, page]);
 
   const totalPages = Math.ceil(totalResults / 10);
 
   return (
-    <div className="container max-w-4xl mx-auto py-8 space-y-6">
-      <div className="w-full flex">
-        <SearchBox />
-      </div>
-      <h1 className="text-3xl font-bold mb-4">Search Results for &quot;{query}&quot;</h1>
-      <SearchResults results={results} loading={loading} />
-      {!loading && page < totalPages && results.length > 0 && (
-        <div className="flex justify-center mt-8">
-          <button
-            onClick={() => setPage((prev) => prev + 1)}
-            className="bg-gray-800 text-white px-4 py-2 rounded"
-          >
-            Show More
-          </button>
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="container max-w-4xl mx-auto py-8 space-y-6">
+        <div className="w-full flex">
+          <SearchBox />
         </div>
-      )}
-    </div>
+        <h1 className="text-3xl font-bold mb-4">Search Results for &quot;{query}&quot;</h1>
+        <SearchResults totalResults={totalResults} results={results} loading={loading} />
+        {!loading && page < totalPages && results.length > 0 && (
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={() => setPage((prev) => prev + 1)}
+              className="bg-gray-800 text-white px-4 py-2 rounded"
+            >
+              Show More
+            </button>
+          </div>
+        )}
+      </div>
+    </Suspense>
   );
 }
+

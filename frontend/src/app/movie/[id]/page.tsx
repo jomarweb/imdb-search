@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import { SearchResult } from "../../../types/SearchResult";
+import { fetchMovieDetails } from "../../../services/apiService"; // Import the service
 
 type MovieDetail = SearchResult & {
   Genre: string;
@@ -25,17 +26,14 @@ type MovieDetail = SearchResult & {
 export default function MovieDetailPage() {
   const [movie, setMovie] = useState<MovieDetail | null>(null);
   const [loading, setLoading] = useState(true);
-  const { id } = useParams();
+  const { id } = useParams() as { id: string };
   const router = useRouter();
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:5200/api/movies/${id}`)
-        .then((response) => response.json())
+      fetchMovieDetails(id)
         .then((data) => {
           data.Poster = data.Poster !== "N/A" ? data.Poster : "/fallback-image.png"; // Add fallback image
-
-
           setMovie(data);
           setLoading(false);
         })
