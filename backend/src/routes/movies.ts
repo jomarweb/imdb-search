@@ -27,14 +27,4 @@ router.get('/:id', (req, res) => {
   fetchFromOMDB(url, res);
 });
 
-router.get('/', (req, res) => {
-  res.send({ message: 'List of movies' });
-});
-
-router.post('/', (req, res) => {
-  const newMovie = req.body;
-  // Add logic to save the new movie
-  res.status(201).send(newMovie);
-});
-
 export default router;

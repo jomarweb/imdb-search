@@ -16,16 +16,18 @@ export default function ResultsPage() {
   const query = searchParams.get("query");
   const lastQuery = useRef<string | null>(null);
   const lastPage = useRef<number>(1);
+  const [displayQuery, setDisplayQuery] = useState<string | null>(null); // Add state for display query
 
   useEffect(() => {
-    if (query) {
+    if (query && query.length >= 3) { // Only search if query has a minimum of 3 characters
       setResults([]); // Reset results when query changes
       setPage(1); // Reset page to 1 when query changes
+      setDisplayQuery(query); // Update display query
     }
   }, [query]);
 
   useEffect(() => {
-    if (query && (query !== lastQuery.current || page !== lastPage.current)) {
+    if (query && query.length >= 3 && (query !== lastQuery.current || page !== lastPage.current)) { // Only search if query has a minimum of 3 characters
       setLoading(true);
       lastQuery.current = query;
       lastPage.current = page;
@@ -88,6 +90,7 @@ export default function ResultsPage() {
             console.error("Error fetching search results:", error);
             setResults([]);
             setLoading(false);
+            setTotalResults(0);
           }
         });
     }
@@ -101,7 +104,9 @@ export default function ResultsPage() {
         <div className="w-full flex">
           <SearchBox />
         </div>
-        <h1 className="text-3xl font-bold mb-4">Search Results for &quot;{query}&quot;</h1>
+        <h1 className="text-3xl font-bold mb-4">
+          Search Results for &quot;{displayQuery}&quot; {/* Use displayQuery for the display text */}
+        </h1>
         <SearchResults totalResults={totalResults} results={results} loading={loading} />
         {!loading && page < totalPages && results.length > 0 && (
           <div className="flex justify-center mt-8">

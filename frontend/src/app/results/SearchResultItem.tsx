@@ -9,13 +9,20 @@ type SearchResultItemProps = {
 };
 
 export default function SearchResultItem({ isDetailLoaded, result }: SearchResultItemProps) {
-  const poster = result.Poster !== "N/A" ? result.Poster : "/fallback-image.png"; // Add fallback image
+  const poster = result.Poster !== "N/A" ? result.Poster : "/images/fallback-image.png"; // Add fallback image
 
   return (
     <Link href={`/movie/${result.imdbID}`} className="block w-full border default-border-color rounded-lg overflow-hidden">
       <div className="flex flex-col sm:flex-row shadow-lg rounded-lg p-4 cursor-pointer">
-        <Image src={poster} alt={result.Title} width={300} height={445} className="w-full sm:w-32 sm:h-48 h-52 object-cover rounded" />
-        <div className="mt-4 sm:mt-0 sm:ml-4  flex flex-col justify-between">
+        <Image 
+          src={poster} 
+          alt={result.Title} 
+          width={300} 
+          height={445} 
+          className="w-full sm:w-32 sm:h-48 h-52 object-cover rounded" 
+          onError={(e) => { e.currentTarget.srcset = "/images/fallback-image.png"; }} // Handle image error
+        />
+        <div className="mt-4 sm:mt-0 sm:ml-4  w-full flex flex-col justify-between">
           <div>
             <h2 className="text-lg font-bold">{result.Title}</h2>
             <p className="text-gray-500">{result.Year}</p>

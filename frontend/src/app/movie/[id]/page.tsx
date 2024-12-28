@@ -51,7 +51,7 @@ export default function MovieDetailPage() {
     if (id) {
       fetchMovieDetails(id)
         .then((data) => {
-          data.Poster = data.Poster !== "N/A" ? data.Poster : "/fallback-image.png"; // Add fallback image
+          data.Poster = data.Poster !== "N/A" ? data.Poster : "/images/fallback-image.png"; // Add fallback image
           setMovie(data);
           setLoading(false);
         })
