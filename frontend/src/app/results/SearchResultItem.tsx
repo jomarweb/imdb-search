@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 import { SearchResult } from "../../types/SearchResult";
 
@@ -6,10 +7,12 @@ type SearchResultItemProps = {
 };
 
 export default function SearchResultItem({ result }: SearchResultItemProps) {
+  const poster = result.Poster !== "N/A" ? result.Poster : "/fallback-image.png"; // Add fallback image
+
   return (
-    <Link href={`/movie/${result.imdbID}`}>
+    <Link href={`/movie/${result.imdbID}`} className="block w-full">
       <div className="flex bg-white shadow-lg rounded-lg p-4 cursor-pointer">
-        <img src={result.Poster} alt={result.Title} className="w-32 h-48 object-cover rounded" />
+        <img src={poster} alt={result.Title} className="w-32 h-48 object-cover rounded" />
         <div className="ml-4 flex flex-col justify-between">
           <div>
             <h2 className="text-lg font-bold">{result.Title}</h2>

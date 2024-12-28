@@ -1,9 +1,10 @@
 "use client";
-
+import React from "react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import SearchResults from "./SearchResults";
 import { SearchResult } from "../../types/SearchResult";
+import SearchBox from "../components/SearchBox"; // Import SearchBox
 
 export default function ResultsPage() {
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -69,11 +70,12 @@ export default function ResultsPage() {
   const totalPages = Math.ceil(totalResults / 10);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container max-w-4xl mx-auto py-8 space-y-6">
+      <div className="w-full flex">
+        <SearchBox />
+      </div>
       <h1 className="text-3xl font-bold mb-4">Search Results for &quot;{query}&quot;</h1>
-  
       <SearchResults results={results} loading={loading} />
-      
       {page < totalPages && (
         <div className="flex justify-center mt-8">
           <button

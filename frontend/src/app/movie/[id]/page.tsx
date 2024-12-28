@@ -17,6 +17,7 @@ type MovieDetail = SearchResult & {
   Production: string;
   Released: string;
   Runtime: string;
+  Poster: string;
 };
 
 export default function MovieDetailPage() {
@@ -30,6 +31,8 @@ export default function MovieDetailPage() {
       fetch(`http://localhost:5200/api/movies/${id}`)
         .then((response) => response.json())
         .then((data) => {
+          data.Poster = data.Poster !== "N/A" ? data.Poster : "/fallback-image.png"; // Add fallback image
+
           setMovie(data);
           setLoading(false);
         })
