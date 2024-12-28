@@ -5,23 +5,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
-import { SearchResult } from "../../../types/SearchResult";
 import { fetchMovieDetails } from "../../../services/apiService"; // Import the service
-
-type MovieDetail = SearchResult & {
-  Genre: string;
-  Director: string;
-  Writer: string;
-  Actors: string;
-  Language: string;
-  Country: string;
-  Awards: string;
-  BoxOffice: string;
-  Production: string;
-  Released: string;
-  Runtime: string;
-  Poster: string;
-};
+import { MovieDetail } from "../../../types/MovieDetail"; // Import the MovieDetail type
 
 const SkeletonLoader = () => (
   <div className="min-h-screen flex items-center justify-center">
