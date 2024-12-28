@@ -26,7 +26,7 @@ export default function SearchBox() {
         onChange={(e) => setQuery(e.target.value)}
         onKeyUp={handleKeyDown}
         placeholder="Search IMDb"
-        className="border border-gray-300 rounded-l-md p-4 w-full outline-none"
+        className="border border-gray-300 text-gray-700 rounded-l-md p-4 w-full outline-none"
         autoFocus
       />
       <button

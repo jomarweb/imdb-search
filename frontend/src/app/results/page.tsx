@@ -40,6 +40,7 @@ export default function ResultsPage() {
                   imdbVotes: details.imdbVotes,
                   Metascore: details.Metascore,
                   Plot: details.Plot,
+                  Genre: details.Genre, // Add genre information
                   key: `${result.imdbID}-${index}`
                 }))
             );
@@ -76,7 +77,7 @@ export default function ResultsPage() {
       </div>
       <h1 className="text-3xl font-bold mb-4">Search Results for &quot;{query}&quot;</h1>
       <SearchResults results={results} loading={loading} />
-      {page < totalPages && (
+      {!loading && page < totalPages && results.length > 0 && (
         <div className="flex justify-center mt-8">
           <button
             onClick={() => setPage((prev) => prev + 1)}

@@ -7,6 +7,7 @@ export type SearchResult = {
   imdbRating?: string;
   imdbVotes?: string;
   Metascore?: string;
+  Genre?: string;
   Plot?: string;
   key?: string;
 };

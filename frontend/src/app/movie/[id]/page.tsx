@@ -33,6 +33,7 @@ export default function MovieDetailPage() {
         .then((data) => {
           data.Poster = data.Poster !== "N/A" ? data.Poster : "/fallback-image.png"; // Add fallback image
 
+
           setMovie(data);
           setLoading(false);
         })
@@ -52,28 +53,28 @@ export default function MovieDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 sm:p-12">
-      <button onClick={() => router.back()} className="mb-4 text-blue-500">Back</button>
-      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
-        <div className="flex">
+    <div className="min-h-screen  p-6 sm:p-12 ">
+      <button onClick={() => router.back()} className="mb-10 text-gray-500 underline mb-5">Back</button>
+      <div className="max-w-4xl mx-auto rounded-lg p-6 default-border-color border rounded-lg p-4">
+        <div className="flex ">
           <img src={movie.Poster} alt={movie.Title} className="w-48 h-72 object-cover rounded" />
           <div className="ml-6 flex flex-col justify-between">
             <div>
               <h1 className="text-3xl font-bold">{movie.Title}</h1>
               <p className="text-gray-500">{movie.Year}</p>
-              <p className="text-sm text-gray-700 mt-2">{movie.Type}</p>
-              <p className="text-sm text-gray-700 mt-2">{movie.Plot}</p>
-              <p className="text-sm text-gray-700 mt-2"><strong>Genre:</strong> {movie.Genre}</p>
-              <p className="text-sm text-gray-700 mt-2"><strong>Director:</strong> {movie.Director}</p>
-              <p className="text-sm text-gray-700 mt-2"><strong>Writer:</strong> {movie.Writer}</p>
-              <p className="text-sm text-gray-700 mt-2"><strong>Actors:</strong> {movie.Actors}</p>
-              <p className="text-sm text-gray-700 mt-2"><strong>Language:</strong> {movie.Language}</p>
-              <p className="text-sm text-gray-700 mt-2"><strong>Country:</strong> {movie.Country}</p>
-              <p className="text-sm text-gray-700 mt-2"><strong>Awards:</strong> {movie.Awards}</p>
-              <p className="text-sm text-gray-700 mt-2"><strong>Box Office:</strong> {movie.BoxOffice}</p>
-              <p className="text-sm text-gray-700 mt-2"><strong>Production:</strong> {movie.Production}</p>
-              <p className="text-sm text-gray-700 mt-2"><strong>Released:</strong> {movie.Released}</p>
-              <p className="text-sm text-gray-700 mt-2"><strong>Runtime:</strong> {movie.Runtime}</p>
+              <p className="text-sm  mt-2">{movie.Type}</p>
+              <p className="text-sm  mt-2">{movie.Plot}</p>
+              <p className="text-sm mt-2"><strong>Genre:</strong> {movie.Genre}</p>
+              <p className="text-sm  mt-2"><strong>Director:</strong> {movie.Director}</p>
+              <p className="text-sm  mt-2"><strong>Writer:</strong> {movie.Writer}</p>
+              <p className="text-sm  mt-2"><strong>Actors:</strong> {movie.Actors}</p>
+              <p className="text-sm  mt-2"><strong>Language:</strong> {movie.Language}</p>
+              <p className="text-sm  mt-2"><strong>Country:</strong> {movie.Country}</p>
+              <p className="text-sm  mt-2"><strong>Awards:</strong> {movie.Awards}</p>
+              <p className="text-sm  mt-2"><strong>Box Office:</strong> {movie.BoxOffice}</p>
+              <p className="text-sm  mt-2"><strong>Production:</strong> {movie.Production}</p>
+              <p className="text-sm  mt-2"><strong>Released:</strong> {movie.Released}</p>
+              <p className="text-sm  mt-2"><strong>Runtime:</strong> {movie.Runtime}</p>
             </div>
             <div className="flex items-center mt-4">
               <span className="text-yellow-500 font-bold">{movie.imdbRating || "N/A"}</span>

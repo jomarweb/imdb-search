@@ -40,3 +40,4 @@ yarn-error.log*
 next-env.d.ts
 */node_modules
 frontend/public
+frontend/.next
