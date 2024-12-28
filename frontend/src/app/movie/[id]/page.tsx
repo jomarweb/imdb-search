@@ -1,45 +1,12 @@
 "use client";
 import React from "react";
-
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import { fetchMovieDetails } from "../../../services/apiService"; // Import the service
 import { MovieDetail } from "../../../types/MovieDetail"; // Import the MovieDetail type
-
-const SkeletonLoader = () => (
-  <div className="min-h-screen flex items-center justify-center">
-    <div className="max-w-4xl w-full mx-auto rounded-lg p-6 default-border-color border animate-pulse">
-      <div className="flex flex-col sm:flex-row">
-        <div className="w-full sm:w-48 h-72 bg-gray-300 rounded"></div>
-        <div className="mt-4 sm:mt-0 sm:ml-6 flex flex-col justify-between w-full">
-          <div>
-            <div className="h-8 bg-gray-300 rounded w-3/4 mb-2"></div>
-            <div className="h-6 bg-gray-300 rounded w-1/2 mb-2"></div>
-            <div className="h-4 bg-gray-300 rounded w-1/4 mb-2"></div>
-            <div className="h-4 bg-gray-300 rounded w-full mb-2"></div>
-            <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
-            <div className="h-4 bg-gray-300 rounded w-1/2 mb-2"></div>
-            <div className="h-4 bg-gray-300 rounded w-1/4 mb-2"></div>
-            <div className="h-4 bg-gray-300 rounded w-full mb-2"></div>
-            <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
-            <div className="h-4 bg-gray-300 rounded w-1/2 mb-2"></div>
-            <div className="h-4 bg-gray-300 rounded w-1/4 mb-2"></div>
-            <div className="h-4 bg-gray-300 rounded w-full mb-2"></div>
-            <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
-            <div className="h-4 bg-gray-300 rounded w-1/2 mb-2"></div>
-          </div>
-          <div className="flex items-center mt-4">
-            <div className="h-6 bg-gray-300 rounded w-12"></div>
-            <div className="ml-2 h-6 bg-gray-300 rounded w-8"></div>
-            <div className="ml-4 h-6 bg-gray-300 rounded w-16"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-);
+import MovieDetailSkeletonLoader from "../../../components/MovieDetailSkeletonLoader"; // Import the MovieDetailSkeletonLoader component
 
 export default function MovieDetailPage() {
   const [movie, setMovie] = useState<MovieDetail | null>(null);
@@ -63,7 +30,7 @@ export default function MovieDetailPage() {
   }, [id]);
 
   if (loading) {
-    return <SkeletonLoader />;
+    return <MovieDetailSkeletonLoader />;
   }
 
   if (!movie) {
