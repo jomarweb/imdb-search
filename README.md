@@ -23,30 +23,19 @@
 3. **Set the OMDB API key environment variable:**
 
    **For macOS/Linux:**
-   Create a `.env` file in the `backend` directory and add the following line:
-   ```
-   OMDB_API_KEY=YOUR_API_KEY
-   ```
-   Alternatively, you can export the variable in your terminal session:
+  
    ```sh
    export OMDB_API_KEY=YOUR_API_KEY
    ```
 
    **For Windows:**
-   Create a `.env` file in the `backend` directory and add the following line:
-   ```
-   OMDB_API_KEY=YOUR_API_KEY
-   ```
-   Alternatively, you can set the variable in your command prompt session:
-   ```sh
+     ```sh
    set OMDB_API_KEY=YOUR_API_KEY
    ```
 
 4. **Run the backend server:**
    ```sh
    npm start
-   # or
-   yarn start
    ```
 
 5. **The backend server will be running on:**
