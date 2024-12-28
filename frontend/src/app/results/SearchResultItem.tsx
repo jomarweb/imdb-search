@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { SearchResult } from "../../types/SearchResult";
 
@@ -12,7 +13,7 @@ export default function SearchResultItem({ result }: SearchResultItemProps) {
   return (
     <Link href={`/movie/${result.imdbID}`} className="block w-full border default-border-color rounded-lg overflow-hidden">
       <div className="flex  shadow-lg rounded-lg p-4 cursor-pointer">
-        <img src={poster} alt={result.Title} className="w-32 h-48 object-cover rounded" />
+        <Image src={poster} alt={result.Title} width={300} height={445} className="w-32 h-48 object-cover rounded" />
         <div className="ml-4 flex flex-col justify-between">
           <div>
             <h2 className="text-lg font-bold">{result.Title}</h2>

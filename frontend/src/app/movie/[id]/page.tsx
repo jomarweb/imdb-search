@@ -1,6 +1,8 @@
 "use client";
+import React from "react";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import { SearchResult } from "../../../types/SearchResult";
@@ -54,10 +56,10 @@ export default function MovieDetailPage() {
 
   return (
     <div className="min-h-screen  p-6 sm:p-12 ">
-      <button onClick={() => router.back()} className="mb-10 text-gray-500 underline mb-5">Back</button>
-      <div className="max-w-4xl mx-auto rounded-lg p-6 default-border-color border rounded-lg p-4">
+      <button onClick={() => router.back()} className="mb- text-gray-500 underline mb-5">Back</button>
+      <div className="max-w-4xl mx-auto rounded-lg p-6 default-border-color border">
         <div className="flex ">
-          <img src={movie.Poster} alt={movie.Title} className="w-48 h-72 object-cover rounded" />
+          <Image src={movie.Poster} alt={movie.Title} width={300} height={445} className={"w-48 h-72 object-cover rounded"} />
           <div className="ml-6 flex flex-col justify-between">
             <div>
               <h1 className="text-3xl font-bold">{movie.Title}</h1>

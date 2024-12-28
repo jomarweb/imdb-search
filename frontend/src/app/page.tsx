@@ -1,9 +1,6 @@
 "use client";
 
 import React from "react";
-
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import SearchBox from "./components/SearchBox";
 
 export default function SearchPage() {
