@@ -72,12 +72,6 @@
 
 - Supports dark mode theme.
 
-### Dark Mode
-
-1. **Enable Dark Mode:**
-   - Open the settings menu in the frontend application.
-   - Toggle the dark mode switch to enable dark mode.
-
 ## Limitations
 - You can only search by title.
 - The data is limited compared to the IMDb website.
