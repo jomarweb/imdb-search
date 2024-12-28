@@ -8,7 +8,7 @@ router.get('/search', async (req, res) => {
   const { title, page = 1 } = req.query;
   try {
     console.log('OMDB_API_KEY', OMDB_API_KEY);
-    const response = await axios.get(`http://www.omdbapi.com/?s=${title}&page=${page}&apikey=${OMDB_API_KEY}`);
+    const response = await axios.get(`http://www.omdbapi.com/?s=${title}&page=${page}&apikey=${OMDB_API_KEY}&type=movie`);
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch movies' });
